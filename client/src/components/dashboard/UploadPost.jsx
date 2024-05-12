@@ -9,6 +9,8 @@ const UploadPost = ({ handleClose, onLoadingChange }) => {
     const [imageUrl, setImageUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
+    const cloudinaryApiKey = process.env.REACT_APP_CLOUDINARY_NAME
+
     const dispatch = useDispatch();
     const loggedInUser = useSelector((state) => state?.auth?.userDetails);
 
@@ -18,11 +20,11 @@ const UploadPost = ({ handleClose, onLoadingChange }) => {
         const data = new FormData();
         data.append('file', file);
         data.append('upload_preset', 'test_app');
-        data.append('cloud_name', import.meta.env.VITE_CLOUDINARY_NAME);
+        data.append('cloud_name', cloudinaryApiKey);
         setIsLoading(true);
         onLoadingChange(true);
         const response = await fetch(
-            `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_NAME}/image/upload`,
+            `https://api.cloudinary.com/v1_1/${cloudinaryApiKey}/image/upload`,
             {
 
                 method: 'POST',
