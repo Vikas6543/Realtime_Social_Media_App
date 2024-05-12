@@ -41,9 +41,12 @@ function App() {
   // socket connection
   useEffect(() => {
     if (loggedInUser) {
-      const socketConnection = io('http://localhost:5000', {
-        query: { userId: loggedInUser?.user._id },
-      });
+      const socketConnection = io(
+        'https://realtime-social-media-app.onrender.com/',
+        {
+          query: { userId: loggedInUser?.user._id },
+        }
+      );
       dispatch({ type: 'SOCKET_CONNECTION', payload: socketConnection });
 
       return () => {
