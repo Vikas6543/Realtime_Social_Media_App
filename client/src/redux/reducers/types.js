@@ -1,0 +1,15 @@
+// auth types
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGOUT = 'LOGOUT';
+export const CLEAR_AUTH_STATE = 'CLEAR_AUTH_STATE';
+
+// post types
+export const RECENT_POSTS = 'RECENT_POSTS';
+export const CLEAR_RECENT_POSTS = 'CLEAR_RECENT_POSTS';
+export const PROFILE_POSTS = 'PROFILE_POSTS';
+export const USER_PROFILE_DETAILS = 'USER_PROFILE_DETAILS';
+export const POST_USER_PROFILE_DETAILS = 'POST_USER_PROFILE_DETAILS';
+
+// chat types
+export const SOCKET_CONNECTION = 'SOCKET_CONNECTION';

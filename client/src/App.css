@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+}
+
+body {
+  background: rgb(246, 247, 248);
+}
+
+.primary-color {
+  color: rgb(243, 67, 102);
+}
+
+.primary-bg-color {
+  background-color: rgb(243, 67, 102);
+}
+
+/* login */
+.login-brand-name {
+  font-family: "Alkatra", system-ui;
+  font-weight: bold;
+  font-size: 30px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.brand-name-subtitle {
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 12px;
+}
+
+
+
+/* navbar css */
+.navbar-wrapper {
+  padding: 14px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 15%);
+}
+
+.app-name {
+  font-family: "Alkatra", system-ui;
+  font-weight: bold;
+  background-color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.navbar-input {
+  outline: none;
+  border: 1px solid rgb(213, 209, 209);
+  padding: 8px 40px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.navbar-input:focus {
+  border: 1px solid rgb(184, 182, 182);
+}
+
+.custom-button {
+  background: linear-gradient(to right, rgb(243, 67, 102), rgb(246, 141, 162));
+  border: none;
+  color: white;
+  padding: 5px 0;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.custom-button-disabled {
+  background: linear-gradient(to right, rgb(243, 67, 102), rgb(246, 141, 162));
+  border: none;
+  color: white;
+  padding: 5px 0;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: not-allowed;
+  width: 100%;
+}
+
+.custom-button:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.notification-wrapper {
+  max-height: 300px;
+}
+
+.notification-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.notification-content:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+/* selected upload image */
+.selectedUploadImage {
+  width: 260px;
+  height: 300px;
+  object-fit: cover;
+}
+
+
+/* sidebar css */
+.sidebar-user {
+   background-color: white;
+   height: 10vh;
+   padding: 20px;
+   margin: 20px;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   border-radius: 8px;
+   position: fixed;
+   top: 80px;
+   left: 100px;
+   width: 236px;
+   box-shadow: 0px 6px 10px 0px rgb(0 0 0 / 15%);
+}
+
+.sidebar-menus {
+   background-color: white;
+   height: 42vh;
+   padding: 20px;
+   margin: 20px;
+   border-radius: 8px;
+   position: fixed;
+   top: 170px;
+   left: 100px;
+   width: 236px;
+   box-shadow: 0px 6px 10px 0px rgb(0 0 0 / 15%);
+}
+
+.sidebar-menu-links {
+  padding: 10px;
+  transition: 0.1s all ease-in-out;
+}
+
+.sidebar-menu-links:hover {
+  color: rgb(243, 67, 102);
+  background-color: rgb(246, 247, 248);
+  border-radius: 8px;
+}
+
+.active-link {
+  color: rgb(243, 67, 102);
+  background-color: rgb(246, 247, 248);
+  border-radius: 8px;
+}
+
+/* dashboard post css */
+.dashboard-wrappper {
+  background-color: white;
+  border-radius: 10px;
+  width: 500px;
+  box-shadow: 0px 6px 10px 0px rgb(0 0 0 / 15%);
+}
+
+.post-image {
+  height: 450px;
+  width: 100%;
+  object-fit: cover;
+}
+
+
+/* chats message box */
+.messages {
+  overflow-y: auto;
+  padding: 10px;
+  height: calc(100vh - 160px);
+}
+
+
+.text-input {
+  border: 1px solid rgb(186, 185, 185);
+  outline: none;
+}
+
+.text-input:focus {
+  border: 1px solid rgb(72, 72, 72);
+}
+
+/* profile post image */
+.profile-post-image {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+
+/* Customize scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #acabab; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  cursor: pointer;
+}
+
+
+/* media queries for responsive UI */
+@media only screen and (min-height: 650px) {
+  .sidebar-menus {
+    top: 180px;
+  }
+}
+
+@media only screen and (min-height: 750px) {
+  .sidebar-menus {
+    top: 190px;
+    height: 35vh
+  }
+}
+
+@media only screen and (min-height: 850px) {
+  .sidebar-menus {
+    top: 200px;
+    height: 30vh
+  }
+}
+
+
