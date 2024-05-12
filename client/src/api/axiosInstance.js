@@ -3,7 +3,7 @@ import { store } from '../redux/store';
 import { CLEAR_AUTH_STATE, CLEAR_RECENT_POSTS } from '../redux/reducers/types';
 
 const localBaseUrl = 'http://localhost:5000';
-const productionBaseUrl = 'https://realtime-social-media.onrender.com';
+const productionBaseUrl = 'https://realtime-social-media-app.onrender.com/';
 
 // base url
 const axiosInstance = axios.create({
