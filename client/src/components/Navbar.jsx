@@ -87,7 +87,7 @@ const Navbar = () => {
   useEffect(() => {
     if (socket) {
       socket.on('getLikedNotification', (data) => {
-        console.log(data)
+        console.log('getLikedNotification', data)
         setNotifications((prev) => [data, ...prev,])
       })
     }
