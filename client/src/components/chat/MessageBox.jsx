@@ -70,8 +70,8 @@ const MessageBox = ({ dbMessages, loggedInUser, selectedChat, onlineUsers, handl
       <section className='flex items-center'>
         <input type='text' value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyPress={handleTyping} placeholder='Type a message' className='p-3 text-input flex-1' />
 
-        <div onClick={handleSendMessage}>
-          <i className="fa-regular fa-paper-plane text-3xl bg-gray-800 py-2 px-4 text-white cursor-pointer"></i>
+        <div>
+          <i onClick={handleSendMessage} className="fa-regular fa-paper-plane text-3xl bg-gray-800 py-2 px-4 text-white cursor-pointer"></i>
         </div>
       </section>
     </main>
