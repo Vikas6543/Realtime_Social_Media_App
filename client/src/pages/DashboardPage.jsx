@@ -39,24 +39,26 @@ const DashboardPage = () => {
   }, []);
 
   return (
-    <main>
-      {loading && <CircularProgress size={40} sx={{ color: 'gray', position: 'absolute', top: '40%', left: '55%', transform: 'translate(-50%, -50%)' }} />}
+    <main className='flex justify-center lg:block'>
+      <div>
+        {loading && <CircularProgress size={40} sx={{ color: 'gray', position: 'absolute', top: '40%', left: '55%', transform: 'translate(-50%, -50%)' }} />}
 
-      {/* recent posts */}
-      {recentPosts?.length === 0 && (
-        <Typography
-          sx={{
-            fontSize: '1.2rem',
-            fontWeight: 'bold',
-            position: 'absolute', top: '40%', left: '55%', transform: 'translate(-50%, -50%)',
-          }}
-        >
-          No Posts Found...
-        </Typography>
-      )}
-      {recentPosts?.map((post) => (
-        <Dashboard post={post} key={post._id} loggedInUser={loggedInUser} recentPosts={recentPosts} getRecentPosts={getRecentPosts} />
-      ))}
+        {/* recent posts */}
+        {recentPosts?.length === 0 && (
+          <Typography
+            sx={{
+              fontSize: '1.2rem',
+              fontWeight: 'bold',
+              position: 'absolute', top: '40%', left: '55%', transform: 'translate(-50%, -50%)',
+            }}
+          >
+            No Posts Found...
+          </Typography>
+        )}
+        {recentPosts?.map((post) => (
+          <Dashboard post={post} key={post._id} loggedInUser={loggedInUser} recentPosts={recentPosts} getRecentPosts={getRecentPosts} />
+        ))}
+      </div>
     </main>
   );
 };

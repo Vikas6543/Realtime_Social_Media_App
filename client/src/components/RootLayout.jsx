@@ -13,12 +13,12 @@ const RootLayout = () => {
           {/* navbar */}
           <Navbar />
 
-          <section className='flex'>
+          <section className='lg:flex'>
             <div className='w-3/12 hidden lg:block'>
               <Sidebar />
             </div>
 
-            <main className='lg:w-9/12 mt-28 lg:ml-28 mx-auto w-12/12'>
+            <main className='lg:w-9/12 mt-28 lg:ml-28'>
               <Outlet />
             </main>
           </section>

@@ -124,7 +124,7 @@ const ChatPage = () => {
 
     setTimeout(() => {
       setLoading(false)
-    }, 1500)
+    }, 1800)
   }, [])
 
   // socket - get messages, typing, stop typing
@@ -164,11 +164,11 @@ const ChatPage = () => {
 
   return (
     <main className="flex h-[80vh]">
-      <section className='border overflow-y-auto w-[40%] lg:w-3/12 rounded-lg'>
+      <section className='border overflow-y-auto w-[25%]'>
         <ChatList chatListUsers={chatListUsers} onlineUsers={onlineUsers} setSelectedChat={setSelectedChat} selectedChat={selectedChat} loading={loading} />
       </section>
 
-      <section className='w-9/12'>
+      <section className='w-[75%]'>
         {selectedChat ? <MessageBox dbMessages={dbMessages} loggedInUser={loggedInUser} selectedChat={selectedChat} onlineUsers={onlineUsers} handleSendMessage={handleSendMessage} inputText={inputText} setInputText={setInputText} handleTyping={handleTyping} isTyping={isTyping} /> : (
           <div style={{
             position: 'absolute',
@@ -177,7 +177,7 @@ const ChatPage = () => {
             transform: 'translate(-50%, -50%)',
           }}>
             <img src={selectChatImage} alt="select-chat-image" width="300px" />
-            <p className='text-center text-gray-500 mt-4 text-xl'>Select a chat to start messaging</p>
+            <p className='text-center text-gray-500 mt-4 lg:text-xl text-md'>Select a friend to start messaging</p>
           </div>
         )}
       </section>
