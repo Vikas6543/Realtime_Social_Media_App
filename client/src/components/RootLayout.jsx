@@ -14,11 +14,11 @@ const RootLayout = () => {
           <Navbar />
 
           <section className='flex'>
-            <div className='w-3/12'>
+            <div className='w-3/12 hidden lg:block'>
               <Sidebar />
             </div>
 
-            <main className='w-9/12 mt-28 ml-28'>
+            <main className='lg:w-9/12 mt-28 lg:ml-28 mx-auto w-12/12'>
               <Outlet />
             </main>
           </section>

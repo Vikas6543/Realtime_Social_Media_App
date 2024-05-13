@@ -183,7 +183,7 @@ const Dashboard = ({ post, loggedInUser, recentPosts, getRecentPosts }) => {
   }, [menuListDropDown]);
 
   return (
-    <div className='dashboard-wrappper mb-10'>
+    <div className='dashboard-wrappper mb-10 w-[380px] lg:w-[500px]'>
       {/* post header */}
       <section className='flex items-center justify-between px-4 py-5'>
         {/* profilen image & name */}
@@ -216,7 +216,7 @@ const Dashboard = ({ post, loggedInUser, recentPosts, getRecentPosts }) => {
 
       {/* post image */}
       <section onDoubleClick={() => likeUnlikeHandler(post._id)}>
-        <img src={post.imageUrl} alt='profile' className='post-image cursor-pointer' />
+        <img src={post.imageUrl} alt='profile' className='post-image cursor-pointer h-[350px] lg:h-[450px]' />
       </section>
 
       {/* post footer */}

@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Modal, Backdrop, Fade } from '@mui/material';
 import UploadPost from './dashboard/UploadPost';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../api/axiosInstance';
 import moment from 'moment';
+import { CLEAR_AUTH_STATE, CLEAR_RECENT_POSTS } from '../redux/reducers/types';
 
 const style = {
   position: 'absolute',
@@ -22,13 +23,39 @@ const style = {
   },
 };
 
+const links = [
+  {
+    name: 'Home',
+    icon: <i className='fa-solid fa-house text-3xl'></i>,
+    url: '/',
+  },
+  {
+    name: 'Chats',
+    icon: <i className='fa-solid fa-message text-3xl'></i>,
+    url: '/chats',
+  },
+  {
+    name: 'Profile',
+    icon: <i className='fa-solid fa-user text-3xl'></i>,
+    url: '/profile',
+  },
+  {
+    name: 'Logout',
+    icon: <i className='fa-solid fa-right-from-bracket text-3xl'></i>,
+    url: '',
+  },
+];
+
 const Navbar = () => {
   const [uploadModal, setUploadModal] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [notificationModal, setNotificationModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showBlink, setShowBlink] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const menuListRef = useRef()
+  const dispatch = useDispatch();
 
   // socket states
   const socket = useSelector((state) => state?.chat?.socketConnection);
@@ -84,10 +111,20 @@ const Navbar = () => {
     return formattedTime
   }
 
+  // handle links logout
+  const handleLinks = (name) => {
+    if (name === 'Logout') {
+      dispatch({ type: CLEAR_AUTH_STATE });
+      dispatch({ type: CLEAR_RECENT_POSTS });
+      window.location.href = '/login';
+    }
+    setMobileMenuOpen(false)
+  };
+
   useEffect(() => {
     if (socket) {
       socket.on('getLikedNotification', (data) => {
-        console.log('getLikedNotification', data)
+        setShowBlink(true)
         setNotifications((prev) => [data, ...prev,])
       })
     }
@@ -118,17 +155,17 @@ const Navbar = () => {
 
   return (
     <main>
-      <div className='flex justify-between items-center bg-white navbar-wrapper'>
+      <div className='flex justify-around lg:justify-between items-center bg-white navbar-wrapper py-[14px] lg:px-[20px] px-[0]'>
 
         {/* brand name */}
         <section>
-          <Link to='/' className='app-name'>
+          <Link to='/' className='app-name text-[20px] lg:text-[30px]'>
             ViksChat
           </Link>
         </section>
 
         {/* search input */}
-        <section className='relative'>
+        <section className='relative hidden lg:block'>
           <input type='text' placeholder='search' className='navbar-input' />
           <i className='fa-solid fa-magnifying-glass absolute left-4 top-3 text-gray-400 text-lg'></i>
         </section>
@@ -137,18 +174,25 @@ const Navbar = () => {
         <section className='flex gap-8 items-center'>
           {/* upload */}
           <div className='cursor-pointer'>
-            <button onClick={() => setUploadModal(true)} className='text-white py-2 px-4 primary-bg-color rounded-lg flex gap-4 items-center'>
+            <button onClick={() => setUploadModal(true)} className='text-white py-1 px-3 lg:py-2 lg:px-3 primary-bg-color rounded-lg flex gap-4 items-center'>
               <i className='fa-solid fa-cloud-arrow-up bg-transparent text-white text-md'></i>
               <p className='font-bold text-md'>UPLOAD</p>
             </button>
           </div>
 
           {/* notification */}
-          <div className='relative' onClick={() => setNotificationModal(!notificationModal)}>
+          <div className='relative' onClick={() => {
+            setNotificationModal(!notificationModal)
+            setShowBlink(false)
+          }}>
             <i className='fa-solid fa-bell text-2xl text-gray-900 cursor-pointer'></i>
-            <span className='bg-red-500 text-white rounded-full text-xs w-5 h-5 flex justify-center items-center absolute -top-2 -right-3 font-bold'>
-              10
-            </span>
+            {showBlink && (
+              <span className='bg-red-500 text-white rounded-full text-xs w-1 h-1 flex justify-center items-center absolute font-bold animate-ping' style={{
+                top: 2,
+                right: -2
+              }}>
+              </span>
+            )}
 
             {notificationModal && (
               <div ref={menuListRef} className={`absolute top-12 -right-4 bg-white shadow-md rounded-lg ${notifications?.length > 0 ? 'notification-wrapper p-4' : 'p-5 text-center'}  overflow-y-auto border`} style={{ width: '300px' }}>
@@ -178,16 +222,20 @@ const Navbar = () => {
             )}
           </div>
 
-
           {/* profile image */}
-          <img
-            src={loggedInUser?.user.profilePicUrl}
-            alt='profile'
-            className='w-10 h-10 rounded-full cursor-pointer'
-          />
+          <div>
+            <i
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className='fa-solid fa-bars text-2xl lg:hidden cursor-pointer'
+            ></i>
+            <img
+              src={loggedInUser?.user.profilePicUrl}
+              alt='profile'
+              className='w-10 h-10 rounded-full cursor-pointer hidden lg:block'
+            />
+          </div>
         </section>
       </div>
-
 
       {/* upload modal */}
       <Modal
@@ -212,6 +260,42 @@ const Navbar = () => {
           </Box>
         </Fade>
       </Modal>
+
+      {/* mobile sidebar menu */}
+      <section className='h-full absolute flex justify-center items-center flex-col top-0 z-10 text-white ' style={{ left: mobileMenuOpen ? '0' : '-500px', transition: 'all 0.9s ease', width: '300px', background: 'rgba(0,0,0,0.9)' }}>
+        <div>
+          {/* user name & email */}
+          <section className='bg-white text-black flex items-center p-2 rounded gap-4 mb-20'>
+            <img
+              src={loggedInUser?.user.profilePicUrl}
+              alt='profile-user'
+              className='w-12 h-12 rounded-full'
+            />
+            <div>
+              <p className='font-bold text-[18px]'>
+                {loggedInUser?.user?.name}
+              </p>
+            </div>
+          </section>
+
+          {/* sidebar menus */}
+          <section>
+            {links.map((link, index) => {
+              return (
+                <Link
+                  to={link.url}
+                  className='flex items-center gap-5 mb-20 cursor-pointer'
+                  key={index}
+                  onClick={() => handleLinks(link.name)}
+                >
+                  <p>{link.icon}</p>
+                  <p className='text-3xl'>{link.name}</p>
+                </Link>
+              );
+            })}
+          </section>
+        </div>
+      </section>
     </main>
   );
 };
