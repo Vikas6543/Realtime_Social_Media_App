@@ -185,16 +185,11 @@ const ChatPage = () => {
   // }, []);
 
   return (
-    <main className="flex chat-wrapper">
-      {/* chat list sidebar */}
-      <section
-        className='w-3/12 bg-white shadow-md'
-        style={{ maxHeight: 'calc(100vh - 100px)', overflowY: 'auto', height: 'calc(100vh - 100px)' }}
-      >
+    <main className="flex h-[80vh]">
+      <section className='border overflow-y-auto w-3/12 rounded-lg'>
         <ChatList chatListUsers={chatListUsers} onlineUsers={onlineUsers} setSelectedChat={setSelectedChat} selectedChat={selectedChat} loading={loading} />
       </section>
 
-      {/* messages box */}
       <section className='w-9/12'>
         {selectedChat ? <MessageBox dbMessages={dbMessages} loggedInUser={loggedInUser} selectedChat={selectedChat} onlineUsers={onlineUsers} handleSendMessage={handleSendMessage} inputText={inputText} setInputText={setInputText} handleTyping={handleTyping} isTyping={isTyping} /> : (
           <div style={{

@@ -4,7 +4,7 @@ import React from 'react';
 const ChatList = ({ chatListUsers, loading, selectedChat, setSelectedChat }) => {
   return (
     <>
-      <p className='font-bold text-xl text-gray-700 border-b cursor-pointer' style={{ padding: '15px 20px' }}>Chats List</p>
+      <p className='font-bold text-xl text-gray-700 border-b cursor-pointer py-[15px] px-[20px] bg-white'>Chats List</p>
 
       {loading ? (
         Array(6).fill(0).map((_, index) => (
@@ -21,7 +21,7 @@ const ChatList = ({ chatListUsers, loading, selectedChat, setSelectedChat }) => 
       ) : (
         <>
           {chatListUsers?.map((chat, index) => (
-            <div key={index} className={`flex items-center gap-4 cursor-pointer ml-2 mt-2 hover:bg-gray-200 p-3 rounded-md relative ${chat?._id === selectedChat ? 'bg-gray-300' : ''
+            <div key={index} className={`flex items-center gap-4 cursor-pointer ml-2 mt-2 hover:bg-gray-200 p-3 rounded-md relative ${chat?._id === selectedChat._id ? 'bg-gray-300' : ''
               }`} onClick={() => {
                 setSelectedChat(chat)
               }}>

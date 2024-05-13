@@ -48,7 +48,7 @@ const MessageBox = ({ dbMessages, loggedInUser, selectedChat, onlineUsers, handl
       {/* message box body */}
       <section className='messages'>
         {dbMessages.length > 0 ? (
-          <div className='mb-16'>
+          <div className='mb-10'>
             {dbMessages?.map((message, index) => (
               <div key={index} className={`mb-5 flex justify-${loggedInUser?.user._id === message.senderId ? 'end' : 'start'}`}>
                 <div className={`p-3 shadow-lg rounded-xl ${loggedInUser?.user._id === message.senderId ? 'primary-bg-color text-white max-w-96' : 'bg-white text-gray-700 max-w-96'}`}>
@@ -66,16 +66,12 @@ const MessageBox = ({ dbMessages, loggedInUser, selectedChat, onlineUsers, handl
         )}
       </section>
 
-
-
       {/* message box footer */}
-      <section className='absolute bottom-0 pt-2' style={{ width: '52%' }}>
-        <div className='flex items-center'>
-          <input type='text' value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyPress={handleTyping} placeholder='Type a message' className='p-3 text-input flex-1' />
+      <section className='flex items-center'>
+        <input type='text' value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyPress={handleTyping} placeholder='Type a message' className='p-3 text-input flex-1' />
 
-          <div onClick={handleSendMessage}>
-            <i className="fa-regular fa-paper-plane text-3xl bg-gray-800 py-2 px-4 text-white cursor-pointer"></i>
-          </div>
+        <div onClick={handleSendMessage}>
+          <i className="fa-regular fa-paper-plane text-3xl bg-gray-800 py-2 px-4 text-white cursor-pointer"></i>
         </div>
       </section>
     </main>
