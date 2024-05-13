@@ -19,7 +19,6 @@ const persistConfig = {
   key: 'root',
   storage,
   whitelist: ['auth', 'post', 'chat'],
-  blacklist: [],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

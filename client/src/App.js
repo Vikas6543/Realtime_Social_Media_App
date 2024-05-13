@@ -39,25 +39,26 @@ function App() {
   const dispatch = useDispatch();
 
   // socket connection
-  // useEffect(() => {
-  //   if (loggedInUser) {
-  //     const socketConnection = io(
-  //       'https://realtime-social-media-app.onrender.com/',
-  //       {
-  //         query: { userId: loggedInUser?.user._id },
-  //       }
-  //     );
-  //     dispatch({ type: 'SOCKET_CONNECTION', payload: socketConnection });
+  useEffect(() => {
+    if (loggedInUser) {
+      const socketConnection = io(
+        'https://realtime-social-media-app.onrender.com/',
+        {
+          query: { userId: loggedInUser?.user._id },
+        }
+      );
+      dispatch({ type: 'SOCKET_CONNECTION', payload: socketConnection });
 
-  //     socketConnection.on('getOnlineUsers', (users) => {
-  //       console.log(users);
-  //     });
+      socketConnection.on('getOnlineUsers', (users) => {
+        const onlineUsers = users?.map((user) => user.userId);
+        dispatch({ type: 'ONLINE_USERS', payload: onlineUsers });
+      });
 
-  //     return () => {
-  //       socketConnection.close();
-  //     };
-  //   }
-  // }, []);
+      return () => {
+        socketConnection.close();
+      };
+    }
+  }, []);
 
   return (
     <>
