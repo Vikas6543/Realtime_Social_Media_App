@@ -166,6 +166,9 @@ const ChatPage = () => {
     <main className="flex h-[80vh]">
       <section className='border overflow-y-auto w-[25%]'>
         <ChatList chatListUsers={chatListUsers} onlineUsers={onlineUsers} setSelectedChat={setSelectedChat} selectedChat={selectedChat} loading={loading} />
+        <button onClick={handleSendMessage}>
+          <i className="fa-regular fa-paper-plane text-3xl bg-gray-800 py-2 px-4 text-white cursor-pointer"></i>
+        </button>
       </section>
 
       <section className='w-[75%]'>
