@@ -149,7 +149,7 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <div className='lg:w-8/12 -mt-2'>
+    <div className='lg:w-8/12 -mt-2 mx-4 lg:mx-0'>
       {isLoading ? (
         <div>
           loading

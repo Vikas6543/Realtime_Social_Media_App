@@ -91,7 +91,7 @@ const UserProfile = () => {
     }, [profileDetails]);
 
     return (
-        <main style={{ width: '62%' }}>
+        <main className='lg:w-[62%] mx-4 lg:mx-0'>
             <div>
                 <Tooltip title='Go Back'>
                     <i className='fa-solid mb-4 fa-arrow-left text-3xl cursor-pointer' onClick={() => navigate(-1)}></i>
