@@ -55,6 +55,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const menuListRef = useRef()
+  const mobileMenuRef = useRef()
   const dispatch = useDispatch();
 
   // socket states
@@ -134,6 +135,7 @@ const Navbar = () => {
     getNotifications()
   }, [])
 
+  // handle notification modal close
   useEffect(() => {
     const handleCloseMenuList = (event) => {
       if (menuListRef.current && !menuListRef.current.contains(event.target)) {
@@ -152,6 +154,25 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleCloseMenuList);
     };
   }, [notificationModal]);
+
+  // handle mobile menu close
+  useEffect(() => {
+    const handleCloseMenuList = (event) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener('mousedown', handleCloseMenuList);
+    } else {
+      document.removeEventListener('mousedown', handleCloseMenuList);
+    }
+    // Cleanup function
+    return () => {
+      document.removeEventListener('mousedown', handleCloseMenuList);
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <main>
@@ -262,18 +283,24 @@ const Navbar = () => {
       </Modal>
 
       {/* mobile sidebar menu */}
-      <section className='h-full absolute flex justify-center items-center flex-col top-0 z-10 text-white ' style={{ left: mobileMenuOpen ? '0' : '-500px', transition: 'all 0.9s ease', width: '300px', background: 'rgba(0,0,0,0.9)' }}>
-        <div>
+      <section ref={mobileMenuRef} className='h-full lg:hidden fixed top-0 bottom-0 z-10 text-white ' style={{ left: mobileMenuOpen ? '0' : '-500px', transition: 'all 0.9s ease', width: '300px', background: 'rgba(0,0,0,0.9)' }}>
+        <div className='mt-52 mx-8'>
+          {/* close menu button */}
+          <i className='fa-solid bg-white text-black py-2 px-3 rounded-lg text-xl fa-x cursor-pointer absolute top-24 right-4' onClick={() => setMobileMenuOpen(!mobileMenuOpen)}></i>
+
           {/* user name & email */}
-          <section className='bg-white text-black flex items-center p-2 rounded gap-4 mb-20'>
+          <section className='bg-white text-black flex items-center py-4 rounded-lg gap-6 mb-20 justify-center'>
             <img
               src={loggedInUser?.user.profilePicUrl}
               alt='profile-user'
-              className='w-12 h-12 rounded-full'
+              className='w-[54px] h-[54px] rounded-full'
             />
             <div>
-              <p className='font-bold text-[18px]'>
+              <p className='font-bold text-[22px]'>
                 {loggedInUser?.user?.name}
+              </p>
+              <p className='text-lg'>
+                {loggedInUser?.user?.email}
               </p>
             </div>
           </section>
