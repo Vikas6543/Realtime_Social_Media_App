@@ -284,12 +284,12 @@ const Navbar = () => {
 
       {/* mobile sidebar menu */}
       <section ref={mobileMenuRef} className='h-full lg:hidden fixed top-0 bottom-0 z-10 text-white ' style={{ left: mobileMenuOpen ? '0' : '-500px', transition: 'all 0.9s ease', width: '300px', background: 'rgba(0,0,0,0.9)' }}>
-        <div className='mt-52 mx-8'>
+        <div className='mt-48 mx-8'>
           {/* close menu button */}
           <i className='fa-solid bg-white text-black py-2 px-3 rounded-lg text-xl fa-x cursor-pointer absolute top-24 right-4' onClick={() => setMobileMenuOpen(!mobileMenuOpen)}></i>
 
           {/* user name & email */}
-          <section className='bg-white text-black flex items-center py-4 rounded-lg gap-6 mb-20 justify-center'>
+          <section className='bg-white text-black flex items-center py-4 rounded-lg gap-4 mb-20 justify-center'>
             <img
               src={loggedInUser?.user.profilePicUrl}
               alt='profile-user'
@@ -298,9 +298,6 @@ const Navbar = () => {
             <div>
               <p className='font-bold text-[22px]'>
                 {loggedInUser?.user?.name}
-              </p>
-              <p className='text-lg'>
-                {loggedInUser?.user?.email}
               </p>
             </div>
           </section>

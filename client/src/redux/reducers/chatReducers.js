@@ -1,7 +1,8 @@
-import { SOCKET_CONNECTION } from './types';
+import { SOCKET_CONNECTION, ONLINE_USERS } from './types';
 
 const initialState = {
   socketConnection: null,
+  onlineUsers: [],
 };
 
 export const chatReducer = (state = initialState, action) => {
@@ -12,6 +13,13 @@ export const chatReducer = (state = initialState, action) => {
       return {
         socketConnection: payload,
       };
+
+    case ONLINE_USERS:
+      return {
+        ...state,
+        onlineUsers: payload,
+      };
+
     default:
       return state;
   }

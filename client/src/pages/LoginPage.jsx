@@ -6,6 +6,7 @@ import { LOGIN_SUCCESS } from '../redux/reducers/types';
 import axiosInstance from '../api/axiosInstance';
 import { toast } from "react-toastify";
 import CircularProgress from '@mui/material/CircularProgress';
+import io from 'socket.io-client';
 
 const LoginPage = () => {
   const [inputValues, setInputValues] = useState({
@@ -33,7 +34,20 @@ const LoginPage = () => {
       const { data } = await axiosInstance.post('/users/login', inputValues)
 
       if (data) {
+        const socketConnection = io(
+          'https://realtime-social-media-app.onrender.com/',
+          {
+            query: { userId: data?.user._id },
+          }
+        );
+
+        socketConnection.on('getOnlineUsers', (users) => {
+          const onlineUsers = users?.map((user) => user.userId)
+          dispatch({ type: 'ONLINE_USERS', payload: onlineUsers });
+        });
+
         dispatch({ type: LOGIN_SUCCESS, payload: data });
+        dispatch({ type: 'SOCKET_CONNECTION', payload: socketConnection });
         setLoading(false)
         navigate('/');
       }

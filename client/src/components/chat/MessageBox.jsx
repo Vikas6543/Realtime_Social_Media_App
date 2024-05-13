@@ -37,9 +37,9 @@ const MessageBox = ({ dbMessages, loggedInUser, selectedChat, onlineUsers, handl
         />
         <div className='font-bold text-xl text-gray-700'>
           {selectedChat?.name}
-          {onlineUsers.includes(selectedChat._id) && (
+          {onlineUsers?.includes(selectedChat._id) && (
             <p className='text-xs text-gray-500'>
-              {isTyping.typing ? 'Typing...' : 'Online'}
+              Online
             </p>
           )}
         </div>

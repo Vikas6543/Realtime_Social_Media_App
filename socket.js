@@ -30,7 +30,6 @@ const initSocket = (server, app) => {
     );
 
     socket.on('typing', (receiverId) => {
-      // Receive receiverId from client
       const user = users.find((user) => user.userId === receiverId);
       if (user) {
         io.to(user.socketId).emit('typing', userId); // Emit typing event to receiver

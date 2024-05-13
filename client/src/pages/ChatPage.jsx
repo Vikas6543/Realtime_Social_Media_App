@@ -4,7 +4,6 @@ import MessageBox from '../components/chat/MessageBox';
 import selectChatImage from '../assets/social-community.jpg'
 import { useSelector } from 'react-redux';
 import axiosInstance from '../api/axiosInstance';
-import io from 'socket.io-client'
 
 const ChatPage = () => {
   const [chatListUsers, setChatListUsers] = useState([]);
@@ -12,11 +11,10 @@ const ChatPage = () => {
   const [loading, setLoading] = useState(false);
   const loggedInUser = useSelector((state) => state?.auth?.userDetails);
   const socket = useSelector((state) => state?.chat?.socketConnection);
+  const onlineUsers = useSelector((state) => state?.chat?.onlineUsers);
 
   // socket states
-  // const [socket, setSocket] = useState(null);
   const [inputText, setInputText] = useState('');
-  const [onlineUsers, setOnlineUsers] = useState([]);
   const [isTyping, setIsTyping] = useState({
     typing: false,
     receiverId: '',
@@ -32,7 +30,6 @@ const ChatPage = () => {
     let combinedLists = []
 
     try {
-      setLoading(true);
       const response = await axiosInstance.get(
         '/users/following',
         {
@@ -44,8 +41,6 @@ const ChatPage = () => {
       combinedLists.push(...response?.data.following)
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
     }
 
     try {
@@ -60,8 +55,6 @@ const ChatPage = () => {
       combinedLists.push(...response?.data.followers)
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
     }
 
     // Extract unique users based on _id
@@ -112,27 +105,31 @@ const ChatPage = () => {
 
   // Function to handle typing event
   const handleTyping = () => {
-    let timeout;
+    // let timeout;
 
-    socket.emit('typing', selectedChat._id);
+    // socket?.emit('typing', selectedChat?._id);
 
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      socket.emit('stopTyping', selectedChat._id);
-    }, 1500);
+    // clearTimeout(timeout);
+    // timeout = setTimeout(() => {
+    //   socket?.emit('stopTyping', selectedChat?._id);
+    // }, 1500);
   };
 
   useEffect(() => {
     getFollowingFollowersList();
   }, []);
 
+  useEffect(() => {
+    setLoading(true)
+
+    setTimeout(() => {
+      setLoading(false)
+    }, 1500)
+  }, [])
+
   // socket - get messages, typing, stop typing
   useEffect(() => {
     if (socket) {
-      socket.on('getOnlineUsers', (message) => {
-        setOnlineUsers(message);
-      })
-
       socket.on('getMessage', (message) => {
         setDbMessages((previousMessage) => [...previousMessage, message]);
       });
@@ -165,28 +162,9 @@ const ChatPage = () => {
     }
   }, [selectedChat]);
 
-  // socket connection
-  // useEffect(() => {
-  //   if (loggedInUser) {
-  //     const socketConnection = io('http://localhost:5000', {
-  //       query: { userId: loggedInUser?.user._id },
-  //     });
-  //     setSocket(socketConnection);
-
-  //     socketConnection.on("getOnlineUsers", (users) => {
-  //       console.log(users);
-  //       setOnlineUsers(users.map((user) => user.userId));
-  //     });
-
-  //     return () => {
-  //       socketConnection.close()
-  //     }
-  //   }
-  // }, []);
-
   return (
     <main className="flex h-[80vh]">
-      <section className='border overflow-y-auto w-3/12 rounded-lg'>
+      <section className='border overflow-y-auto w-[40%] lg:w-3/12 rounded-lg'>
         <ChatList chatListUsers={chatListUsers} onlineUsers={onlineUsers} setSelectedChat={setSelectedChat} selectedChat={selectedChat} loading={loading} />
       </section>
 
