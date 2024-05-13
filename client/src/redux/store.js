@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'post'],
+  whitelist: ['auth', 'post', 'chat'],
   blacklist: [],
 };
 

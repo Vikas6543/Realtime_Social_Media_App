@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { store } from '../redux/store';
-import { CLEAR_AUTH_STATE, CLEAR_RECENT_POSTS } from '../redux/reducers/types';
+import {
+  CLEAR_AUTH_STATE,
+  CLEAR_RECENT_POSTS,
+  CLEAR_SOCKET_STATE,
+} from '../redux/reducers/types';
 
 const localBaseUrl = 'http://localhost:5000';
 const productionBaseUrl = 'https://realtime-social-media-app.onrender.com/';
@@ -22,6 +26,7 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 404 || error.response.status === 401) {
       store.dispatch({ type: CLEAR_AUTH_STATE });
       store.dispatch({ type: CLEAR_RECENT_POSTS });
+      store.dispatch({ type: CLEAR_SOCKET_STATE });
       window.location.href = '/login';
     }
 

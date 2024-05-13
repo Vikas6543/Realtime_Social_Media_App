@@ -1,4 +1,4 @@
-import { SOCKET_CONNECTION, ONLINE_USERS } from './types';
+import { SOCKET_CONNECTION, ONLINE_USERS, CLEAR_SOCKET_STATE } from './types';
 
 const initialState = {
   socketConnection: null,
@@ -18,6 +18,13 @@ export const chatReducer = (state = initialState, action) => {
       return {
         ...state,
         onlineUsers: payload,
+      };
+
+    case CLEAR_SOCKET_STATE:
+      return {
+        ...state,
+        socketConnection: null,
+        onlineUsers: [],
       };
 
     default:

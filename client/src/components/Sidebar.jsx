@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { CLEAR_AUTH_STATE, CLEAR_RECENT_POSTS } from '../redux/reducers/types';
+import { CLEAR_AUTH_STATE, CLEAR_RECENT_POSTS, CLEAR_SOCKET_STATE } from '../redux/reducers/types';
 
 const links = [
   {
@@ -35,6 +35,7 @@ const Sidebar = () => {
     if (name === 'Logout') {
       dispatch({ type: CLEAR_AUTH_STATE });
       dispatch({ type: CLEAR_RECENT_POSTS });
+      dispatch({ type: CLEAR_SOCKET_STATE });
       window.location.href = '/login';
     }
   };

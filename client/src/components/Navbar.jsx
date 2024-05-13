@@ -5,7 +5,7 @@ import UploadPost from './dashboard/UploadPost';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../api/axiosInstance';
 import moment from 'moment';
-import { CLEAR_AUTH_STATE, CLEAR_RECENT_POSTS } from '../redux/reducers/types';
+import { CLEAR_AUTH_STATE, CLEAR_RECENT_POSTS, CLEAR_SOCKET_STATE } from '../redux/reducers/types';
 
 const style = {
   position: 'absolute',
@@ -117,6 +117,7 @@ const Navbar = () => {
     if (name === 'Logout') {
       dispatch({ type: CLEAR_AUTH_STATE });
       dispatch({ type: CLEAR_RECENT_POSTS });
+      dispatch({ type: CLEAR_SOCKET_STATE });
       window.location.href = '/login';
     }
     setMobileMenuOpen(false)
