@@ -209,7 +209,7 @@ const Navbar = () => {
           }}>
             <i className='fa-solid fa-bell text-2xl text-gray-900 cursor-pointer'></i>
             {showBlink && (
-              <span className='bg-red-500 text-white rounded-full text-xs w-1 h-1 flex justify-center items-center absolute font-bold animate-ping' style={{
+              <span className='bg-red-500 text-white rounded-full text-xs w-2 h-2 flex justify-center items-center absolute font-bold animate-ping' style={{
                 top: 2,
                 right: -2
               }}>
@@ -309,7 +309,7 @@ const Navbar = () => {
               return (
                 <Link
                   to={link.url}
-                  className='flex items-center gap-5 mb-20 cursor-pointer'
+                  className='flex items-center gap-5 mb-16 cursor-pointer'
                   key={index}
                   onClick={() => handleLinks(link.name)}
                 >

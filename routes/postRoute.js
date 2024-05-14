@@ -138,15 +138,8 @@ router.delete('/:postId', isAuthenticated, async (req, res) => {
   try {
     const { postId } = req.params;
 
-    // check if the post exists
-    const post = await PostModel.findById(postId);
-
-    if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
-    }
-
-    // delete the post
-    await post.remove();
+    // find by id and delete
+    await PostModel.findByIdAndDelete(postId);
 
     res.status(200).json({
       message: 'Post deleted successfully',
