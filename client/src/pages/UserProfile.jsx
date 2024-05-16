@@ -50,7 +50,6 @@ const UserProfile = () => {
             }
             );
             setFollowLoading(false);
-            dispatch({ type: LOGIN_SUCCESS, payload: response?.data });
         } catch (error) {
             setFollowLoading(false);
             console.log(error);
@@ -64,8 +63,8 @@ const UserProfile = () => {
             const response = await axiosInstance.put(
                 `/users/follow/${userId}`, {}, {
                 headers: {
-                    Authorization: loggedInUser?.token,
-                },
+                    Authorization: loggedInUser?.token
+                }
             }
             );
             setFollowLoading(false);
