@@ -284,7 +284,10 @@ router.put('/follow/:id', isAuthenticated, async (req, res) => {
         $pull: { following: req.params.id },
       });
 
+      const newUserUpdates = await UserModel.findById(req.params.id);
+
       res.status(200).json({
+        user: newUserUpdates,
         message: 'User unfollowed successfully',
       });
     } else {
@@ -294,9 +297,11 @@ router.put('/follow/:id', isAuthenticated, async (req, res) => {
         $push: { following: req.params.id },
       });
 
+      const newUserUpdates = await UserModel.findById(req.params.id);
+
       res.status(200).json({
         message: 'User followed successfully',
-        user,
+        user: newUserUpdates,
       });
     }
   } catch (error) {

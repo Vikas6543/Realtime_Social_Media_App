@@ -12,7 +12,6 @@ const UserProfile = () => {
     const [followLoading, setFollowLoading] = useState(false);
 
     const { id } = useParams();
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const loggedInUser = useSelector((state) => state?.auth?.userDetails);
     const recentPosts = useSelector((state) => state.post?.recentPosts);
@@ -38,24 +37,6 @@ const UserProfile = () => {
         }
     };
 
-    // update loggedin user deatils after following or unfollowing
-    const updateLoggedInUserDetails = async () => {
-        try {
-            setFollowLoading(true);
-            const response = await axiosInstance.get(
-                '/users/profile', {
-                headers: {
-                    Authorization: loggedInUser?.token,
-                },
-            }
-            );
-            setFollowLoading(false);
-        } catch (error) {
-            setFollowLoading(false);
-            console.log(error);
-        }
-    };
-
     // follow & unfollow
     const followHandler = async (userId) => {
         try {
@@ -69,8 +50,7 @@ const UserProfile = () => {
             );
             setFollowLoading(false);
             if (response) {
-                getProfileDetails();
-                updateLoggedInUserDetails();
+                setProfileDetails(response?.data?.user);
             }
         } catch (error) {
             setFollowLoading(false);

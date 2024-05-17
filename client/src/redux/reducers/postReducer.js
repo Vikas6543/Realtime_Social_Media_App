@@ -3,7 +3,6 @@ import {
   CLEAR_RECENT_POSTS,
   PROFILE_POSTS,
   USER_PROFILE_DETAILS,
-  POST_USER_PROFILE_DETAILS,
 } from './types';
 
 const initialState = {
@@ -19,9 +18,6 @@ export const postReducer = (state = initialState, action) => {
     case USER_PROFILE_DETAILS:
       return { ...state, userProfileDetails: action.payload };
 
-    case POST_USER_PROFILE_DETAILS:
-      return { ...state, userProfileDetails: action.payload };
-
     case PROFILE_POSTS:
       return { ...state, profilePosts: action.payload };
 
@@ -30,6 +26,7 @@ export const postReducer = (state = initialState, action) => {
         ...state,
         recentPosts: [],
         profilePosts: {},
+        otherUserProfileDetails: {},
         chatStatus: false,
       };
 
