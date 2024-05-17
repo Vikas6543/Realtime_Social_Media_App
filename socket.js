@@ -1,14 +1,14 @@
 const { Server } = require('socket.io');
 const { MongoClient } = require('mongodb');
 
-let users = [];
-
-const initSocket = (server, app) => {
+const initSocket = (server) => {
   let io = new Server(server, {
     cors: {
       methods: ['GET', 'POST'],
     },
   });
+
+  let users = [];
 
   // socket connection
   io.on('connection', (socket) => {
@@ -64,31 +64,23 @@ const initSocket = (server, app) => {
     });
   });
 
-  app.locals.io = io;
+  // app.locals.io = io;
 
-  // Call the function to setup the change stream
-  // setupChangeStream(io);
+  // Setup MongoDB change stream
+  setupChangeStream(io);
 };
 
 // Setup MongoDB change stream
 const setupChangeStream = async (io) => {
-  try {
-    const client = new MongoClient(process.env.MONGO_URL);
-    await client.connect();
+  const client = new MongoClient(process.env.MONGO_DATABASE_URL);
+  await client.connect();
 
-    const database = client.db('test');
-    const collection = database.collection('users');
+  const db = client.db('test');
+  const changeStream = db.watch();
 
-    const changeStream = collection.watch();
-
-    // Listen for changes in the collection
-    changeStream.on('change', (change) => {
-      // Emit event to connected clients when a change occurs
-      io.emit('databaseChange', change);
-    });
-  } catch (error) {
-    console.error('Error setting up change stream:', error);
-  }
+  changeStream.on('change', (change) => {
+    io.emit('databaseChange', change);
+  });
 };
 
-module.exports = { initSocket, users };
+module.exports = { initSocket };

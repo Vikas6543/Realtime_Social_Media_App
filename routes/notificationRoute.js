@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const NotificationModel = require('../models/notificationModel');
-const isAuthenticated = require('../middlewares/auth');
+const { isAuthenticated } = require('../middlewares/auth');
 
 // get notifications for a user
 router.get('/', isAuthenticated, async (req, res) => {

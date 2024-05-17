@@ -49,7 +49,9 @@ const links = [
 const Navbar = () => {
   const [uploadModal, setUploadModal] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [adminData, setAdminData] = useState([]);
   const [notificationModal, setNotificationModal] = useState(false);
+  const [adminModal, setAdminModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showBlink, setShowBlink] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -129,6 +131,12 @@ const Navbar = () => {
         setShowBlink(true)
         setNotifications((prev) => [data, ...prev,])
       })
+
+      // socket.on('databaseChange', (data) => {
+      //   if (data?.operationType === 'insert') {
+      //     setAdminData((prev) => [data?.fullDocument?.name, ...prev])
+      //   }
+      // });
     }
   }, [socket])
 
@@ -141,10 +149,11 @@ const Navbar = () => {
     const handleCloseMenuList = (event) => {
       if (menuListRef.current && !menuListRef.current.contains(event.target)) {
         setNotificationModal(false);
+        setAdminModal(false);
       }
     };
 
-    if (notificationModal) {
+    if (notificationModal || adminModal) {
       document.addEventListener('mousedown', handleCloseMenuList);
     } else {
       document.removeEventListener('mousedown', handleCloseMenuList);
@@ -154,7 +163,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener('mousedown', handleCloseMenuList);
     };
-  }, [notificationModal]);
+  }, [notificationModal, adminModal]);
 
   // handle mobile menu close
   useEffect(() => {
@@ -243,6 +252,37 @@ const Navbar = () => {
               </div>
             )}
           </div>
+
+          {/* admin */}
+          {/* {loggedInUser?.user.role === 'admin' && (
+            <div className='relative' onClick={() => {
+              setAdminModal(!adminModal)
+            }}>
+              <i className='fa fa-user text-2xl text-green-500 cursor-pointer'></i>
+
+              {adminModal && (
+                <div ref={menuListRef} className={`absolute top-12 -right-4 bg-white shadow-md rounded-lg ${notifications?.length > 0 ? 'notification-wrapper p-4' : 'p-5 text-center'}  overflow-y-auto border`} style={{ width: '300px' }}>
+                  {adminData?.length > 0 ? (
+                    <>
+                      {adminData?.map((notification, index) => (
+                        <div key={index} className='notification-content'>
+                          <div className='flex gap-4 items-center'>
+                            <div>
+                              <p>New User <span className='font-semibold'>{notification}</span> has Registered</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <p>
+                      No new notifications...
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          )} */}
 
           {/* profile image */}
           <div>

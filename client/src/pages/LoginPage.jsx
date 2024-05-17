@@ -35,7 +35,7 @@ const LoginPage = () => {
 
       if (data) {
         const socketConnection = io(
-          'https://realtime-social-media-app.onrender.com/',
+          'http://localhost:5000',
           {
             query: { userId: data?.user._id },
           }

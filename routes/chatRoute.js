@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const MessageModel = require('../models/messageModel');
 const ConversationModel = require('../models/conversationModel');
-const isAuthenticated = require('../middlewares/auth');
+const { isAuthenticated } = require('../middlewares/auth');
 
 // Route to send a new message
 router.post('/:id', isAuthenticated, async (req, res) => {

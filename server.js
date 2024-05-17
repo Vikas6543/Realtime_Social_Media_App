@@ -37,7 +37,7 @@ app.use('/notifications', require('./routes/notificationRoute'));
 
 // socket io
 const { initSocket } = require('./socket');
-initSocket(server, app);
+initSocket(server);
 
 // deployment to render
 if (process.env.NODE_ENV === 'production') {

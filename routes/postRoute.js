@@ -2,8 +2,7 @@ const router = require('express').Router();
 const PostModel = require('../models/postModel');
 const UserModel = require('../models/userModel');
 const NotificationModel = require('../models/notificationModel');
-const isAuthenticated = require('../middlewares/auth');
-const { users } = require('../socket.js');
+const { isAuthenticated } = require('../middlewares/auth');
 
 // create a post
 router.post('/', isAuthenticated, async (req, res) => {

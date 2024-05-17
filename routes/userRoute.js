@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const UserModel = require('../models/userModel');
 const TokenModel = require('../models/tokenModel');
-const isAuthenticated = require('../middlewares/auth');
+const { isAuthenticated, checkRole } = require('../middlewares/auth');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');

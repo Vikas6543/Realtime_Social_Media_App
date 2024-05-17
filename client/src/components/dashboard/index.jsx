@@ -5,7 +5,6 @@ import axiosInstance from '../../api/axiosInstance';
 import { Box, Modal, Typography } from '@mui/material';
 import CommentsList from './CommentsList';
 import { useNavigate } from 'react-router-dom';
-import io from 'socket.io-client'
 
 const commentsModalStyle = {
   position: 'absolute',
@@ -204,7 +203,7 @@ const Dashboard = ({ post, loggedInUser, recentPosts, getRecentPosts }) => {
 
           {menuListDropDown && (
             <div className='absolute border top-7 right-0 bg-white shadow-md rounded w-32 p-1' ref={menuListRef}>
-              {post.postOwner._id === loggedInUser?.user._id && (
+              {(post.postOwner._id === loggedInUser?.user._id || loggedInUser?.user.role === 'admin') && (
                 <div className='flex items-center gap-3 cursor-pointer hover:bg-gray-100 rounded p-2' onClick={() => openDeleteModalHandler(post._id)}><i className="fa-solid fa-trash"></i> <p>Delete</p></div>
               )}
               <div className='flex items-center gap-3 cursor-pointer hover:bg-gray-100 rounded p-2'><i className="fa-solid fa-star"></i>

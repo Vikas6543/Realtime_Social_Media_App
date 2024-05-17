@@ -20,7 +20,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'admin'],
+    enum: ['user', 'admin', 'superAdmin'],
     default: 'user',
   },
   profilePicUrl: {
@@ -75,7 +75,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 
 // create a token for the user
 userSchema.methods.createToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: this._id, role: this.role }, process.env.JWT_SECRET, {
     expiresIn: '12h',
   });
 };
