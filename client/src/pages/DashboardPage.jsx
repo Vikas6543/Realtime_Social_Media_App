@@ -43,7 +43,7 @@ const DashboardPage = () => {
       <div>
         {loading && <CircularProgress size={40} sx={{ color: 'gray', position: 'absolute', top: '40%', left: '55%', transform: 'translate(-50%, -50%)' }} />}
 
-        {/* recent posts */}
+        {/* Display message if no posts are found */}
         {recentPosts?.length === 0 && (
           <Typography
             sx={{
@@ -55,6 +55,8 @@ const DashboardPage = () => {
             No Posts Found...
           </Typography>
         )}
+
+        {/* Map over recent posts */}
         {recentPosts?.map((post) => (
           <Dashboard post={post} key={post._id} loggedInUser={loggedInUser} recentPosts={recentPosts} getRecentPosts={getRecentPosts} />
         ))}

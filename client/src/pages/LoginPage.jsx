@@ -29,13 +29,13 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true);
     try {
-      setLoading(true)
       const { data } = await axiosInstance.post('/users/login', inputValues)
 
       if (data) {
         const socketConnection = io(
-          'http://localhost:5000',
+          process.env.REACT_APP_PRODUCTION_URL,
           {
             query: { userId: data?.user._id },
           }
@@ -48,12 +48,12 @@ const LoginPage = () => {
 
         dispatch({ type: LOGIN_SUCCESS, payload: data });
         dispatch({ type: 'SOCKET_CONNECTION', payload: socketConnection });
-        setLoading(false)
         navigate('/');
       }
     } catch (error) {
-      setLoading(false)
-      toast.error(error?.response?.data.message);
+      toast.error(error?.response?.data?.message || 'Login failed');
+    } finally {
+      setLoading(false);
     }
   }
 

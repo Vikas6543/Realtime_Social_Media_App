@@ -41,7 +41,7 @@ function App() {
   // socket connection
   useEffect(() => {
     if (loggedInUser) {
-      const socketConnection = io('http://localhost:5000', {
+      const socketConnection = io(process.env.REACT_APP_PRODUCTION_URL, {
         query: { userId: loggedInUser?.user._id },
       });
       dispatch({ type: 'SOCKET_CONNECTION', payload: socketConnection });

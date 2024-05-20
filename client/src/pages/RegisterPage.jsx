@@ -37,8 +37,8 @@ const RegisterPage = () => {
     data.append('file', file);
     data.append('upload_preset', 'test_app');
     data.append('cloud_name', cloudinaryApiKey);
+    setLoading(true);
     try {
-      setLoading(true);
       const response = await axios
         .post(
           `https://api.cloudinary.com/v1_1/${cloudinaryApiKey}/image/upload`,
@@ -56,6 +56,7 @@ const RegisterPage = () => {
   // handle form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const data = {
       name: inputValues.name,
       email: inputValues.email,
@@ -64,7 +65,6 @@ const RegisterPage = () => {
     }
 
     try {
-      setLoading(true);
       const response = await axiosInstance.post(
         '/users/register',
         data
@@ -74,7 +74,7 @@ const RegisterPage = () => {
         navigate('/login');
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'Register failed');
     } finally {
       setLoading(false);
     }
